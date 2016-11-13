@@ -13,21 +13,32 @@ return [
     |
     */
 
+    // Forms
+    'save_action_save_and_new' => 'Save and new item',
+    'save_action_save_and_edit' => 'Save and edit this item',
+    'save_action_save_and_back' => 'Save and back',
+    'save_action_changed_notification' => 'Default behaviour after saving has been changed.',
+
     // Create form
     'add'                 => 'Add',
     'back_to_all'         => 'Back to all ',
     'cancel'              => 'Cancel',
     'add_a_new'           => 'Add a new ',
 
-        // Create form - advanced options
-        'after_saving'            => 'After saving',
-        'go_to_the_table_view'    => 'go to the table view',
-        'let_me_add_another_item' => 'let me add another item',
-        'edit_the_new_item'       => 'edit the new item',
-
     // Edit form
     'edit'                 => 'Edit',
     'save'                 => 'Save',
+
+    // Revisions
+    'revisions'            => 'Revisions',
+    'no_revisions'         => 'No revisions found',
+    'created_this'          => 'created this',
+    'changed_the'          => 'changed the',
+    'restore_this_value'   => 'Restore this value',
+    'from'                 => 'from',
+    'to'                   => 'to',
+    'undo'                 => 'Undo',
+    'revision_restored'    => 'Revision successfully restored',
 
     // CRUD table view
     'all'                       => 'All ',
@@ -88,6 +99,10 @@ return [
     'reorder_error_title'          => 'Error',
     'reorder_error_message'        => 'Your order has not been saved.',
 
+    // CRUD yes/no
+    'yes' => 'Yes',
+    'no' => 'No',
+
     // Fields
     'browse_uploads' => 'Browse uploads',
     'clear' => 'Clear',
@@ -96,5 +111,10 @@ return [
     'internal_link' => 'Internal link',
     'internal_link_placeholder' => 'Internal slug. Ex: \'admin/page\' (no quotes) for \':url\'',
     'external_link' => 'External link',
+    'choose_file' => 'Choose file',
+
+    //Table field
+    'table_cant_add' => 'Cannot add new :entity',
+    'table_max_reached' => 'Maximum number of :max reached',
 
 ];

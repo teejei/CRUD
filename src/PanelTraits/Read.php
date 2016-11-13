@@ -67,6 +67,23 @@ trait Read
     }
 
     /**
+     * Check if the create/update form has upload fields.
+     * Upload fields are the ones that have "upload" => true defined on them.
+     * @param  [form] create / update / both - defaults to 'both'
+     * @param  [id] id of the entity - defaults to false
+     * @return bool
+     */
+    public function hasUploadFields($form, $id = false)
+    {
+        $fields = $this->getFields($form, $id);
+        $upload_fields = array_where($fields, function ($value, $key) {
+            return isset($value['upload']) && $value['upload'] == true;
+        });
+
+        return count($upload_fields) ? true : false;
+    }
+
+    /**
      * Enable the DETAILS ROW functionality:.
      *
      * In the table view, show a plus sign next to each entry.
@@ -170,5 +187,28 @@ trait Read
                 }
             }
         }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    |                                EXPORT BUTTONS
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Tell the list view to show the DataTables export buttons.
+     */
+    public function enableExportButtons()
+    {
+        $this->export_buttons = true;
+    }
+
+    /**
+     * Check if export buttons are enabled for the table view.
+     * @return bool
+     */
+    public function exportButtons()
+    {
+        return $this->export_buttons;
     }
 }

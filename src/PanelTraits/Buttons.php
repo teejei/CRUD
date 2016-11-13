@@ -50,6 +50,8 @@ trait Buttons
 
     public function addButtonFromView($stack, $name, $view, $position = false)
     {
+        $view = 'vendor.backpack.crud.buttons.'.$view;
+
         $this->addButton($stack, $name, 'view', $view, $position);
     }
 
@@ -65,6 +67,7 @@ trait Buttons
         // line stack
         $this->addButton('line', 'preview', 'view', 'crud::buttons.preview', 'end');
         $this->addButton('line', 'update', 'view', 'crud::buttons.update', 'end');
+        $this->addButton('line', 'revisions', 'view', 'crud::buttons.revisions', 'end');
         $this->addButton('line', 'delete', 'view', 'crud::buttons.delete', 'end');
 
         // top stack
@@ -74,14 +77,26 @@ trait Buttons
 
     public function removeButton($name)
     {
-        $this->buttons->reject(function ($button) {
+        $this->buttons = $this->buttons->reject(function ($button) use ($name) {
             return $button->name == $name;
+        });
+    }
+
+    public function removeAllButtons()
+    {
+        $this->buttons = collect([]);
+    }
+
+    public function removeAllButtonsFromStack($stack)
+    {
+        $this->buttons = $this->buttons->reject(function ($button) use ($stack) {
+            return $button->stack == $stack;
         });
     }
 
     public function removeButtonFromStack($name, $stack)
     {
-        $this->buttons->reject(function ($button) {
+        $this->buttons = $this->buttons->reject(function ($button) use ($name, $stack) {
             return $button->name == $name && $button->stack == $stack;
         });
     }

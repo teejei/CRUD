@@ -15,10 +15,13 @@ use Backpack\CRUD\PanelTraits\Query;
 use Backpack\CRUD\PanelTraits\Read;
 use Backpack\CRUD\PanelTraits\Reorder;
 use Backpack\CRUD\PanelTraits\Update;
+use Backpack\CRUD\PanelTraits\ViewsAndRestoresRevisions;
+use Backpack\CRUD\PanelTraits\AutoFocus;
+use Backpack\CRUD\PanelTraits\Filters;
 
 class CrudPanel
 {
-    use Create, Read, Update, Delete, Reorder, Access, Columns, Fields, Query, Buttons, AutoSet, FakeFields, FakeColumns;
+    use Create, Read, Update, Delete, Reorder, Access, Columns, Fields, Query, Buttons, AutoSet, FakeFields, FakeColumns, ViewsAndRestoresRevisions, AutoFocus, Filters;
 
     // --------------
     // CRUD variables
@@ -33,8 +36,9 @@ class CrudPanel
     public $route; // what route have you defined for your entity? used for links.
     public $entity_name = 'entry'; // what name will show up on the buttons, in singural (ex: Add entity)
     public $entity_name_plural = 'entries'; // what name will show up on the buttons, in plural (ex: Delete 5 entities)
+    public $request;
 
-    public $access = ['list', 'create', 'update', 'delete'/* 'reorder', 'show', 'details_row' */];
+    public $access = ['list', 'create', 'update', 'delete'/* 'revisions', reorder', 'show', 'details_row' */];
 
     public $reorder = false;
     public $reorder_label = false;
@@ -42,6 +46,7 @@ class CrudPanel
 
     public $details_row = false;
     public $ajax_table = false;
+    public $export_buttons = false;
 
     public $columns = []; // Define the columns for the table view as an array;
     public $create_fields = []; // Define the fields for the "Add new entry" view as an array;
@@ -124,9 +129,9 @@ class CrudPanel
      * Get the current CrudController route.
      *
      * Can be defined in the CrudController with:
-     * - $this->crud->setRoute('admin/article')
-     * - $this->crud->setRouteName('admin.article')
-     * - $this->crud->route = "admin/article"
+     * - $this->crud->setRoute(config('backpack.base.route_prefix').'/article')
+     * - $this->crud->setRouteName(config('backpack.base.route_prefix').'.article')
+     * - $this->crud->route = config('backpack.base.route_prefix')."/article"
      *
      * @return [string]
      */
@@ -162,7 +167,7 @@ class CrudPanel
      */
     public function getFirstOfItsTypeInArray($type, $array)
     {
-        return array_first($array, function ($key, $item) use ($type) {
+        return array_first($array, function ($item) use ($type) {
             return $item['type'] == $type;
         });
     }

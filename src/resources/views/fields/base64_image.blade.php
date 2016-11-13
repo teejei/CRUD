@@ -1,37 +1,42 @@
-  <div class="form-group image" data-preview="#{{ $field['name'] }}" data-aspectRatio="{{ $field['aspect_ratio'] }}" data-crop="{{ $field['crop'] }}">
+  <div class="form-group col-md-12 image" data-preview="#{{ $field['name'] }}" data-aspectRatio="{{ isset($field['aspect_ratio']) ? $field['aspect_ratio'] : 0 }}" data-crop="{{ isset($field['crop']) ? $field['crop'] : false }}" @include('crud::inc.field_wrapper_attributes')>
     <div>
-        <label>{{ $field['label'] }}</label>
+        <label>{!! $field['label'] !!}</label>
     </div>
     <!-- Wrap the image or canvas element with a block element (container) -->
     <div class="row">
         <div class="col-sm-6" style="margin-bottom: 20px;">
-            <img id="mainImage" src="{{ isset($field['src']) ? $entry->where('id', $entry->id)->first()->{$field['src']}() : $field['value'] }}">
+            <img id="mainImage" src="{{ isset($field['src']) ? $entry->where('id', $entry->id)->first()->{$field['src']}() : (isset($field['value']) ? $field['value'] : (isset($field['default']) ? $field['default'] : '' )) }}">
         </div>
-        @if($field['crop'])
+        @if(isset($field['crop']) && $field['crop'])
         <div class="col-sm-3">
             <div class="docs-preview clearfix">
                 <div id="{{ $field['name'] }}" class="img-preview preview-lg">
                     <img src="" style="display: block; min-width: 0px !important; min-height: 0px !important; max-width: none !important; max-height: none !important; margin-left: -32.875px; margin-top: -18.4922px; transform: none;">
                 </div>
             </div>
-        </div>   
+        </div>
         @endif
         <input type="hidden" id="hiddenFilename" name="{{ $field['filename'] }}" value="">
     </div>
     <div class="btn-group">
         <label class="btn btn-primary btn-file">
-            Upload <input type="file" accept="image/*" id="uploadImage" class="hide">
+            Choose file <input type="file" accept="image/*" id="uploadImage" @include('crud::inc.field_attributes', ['default_class' => 'hide'])>
             <input type="hidden" id="hiddenImage" name="{{ $field['name'] }}">
         </label>
-        @if($field['crop'])
-        <button class="btn btn-default" id="rotateLeft" type="button" style="display: none;">Rotate Left</button>
-        <button class="btn btn-default" id="rotateRight" type="button" style="display: none;">Rotate Right</button>
-        <button class="btn btn-default" id="zoomIn" type="button" style="display: none;">Zoom In</button>
-        <button class="btn btn-default" id="zoomOut" type="button" style="display: none;">Zoom Out</button>
-        <button class="btn btn-warning" id="reset" type="button" style="display: none;">Reset</button> 
+        @if(isset($field['crop']) && $field['crop'])
+        <button class="btn btn-default" id="rotateLeft" type="button" style="display: none;"><i class="fa fa-rotate-left"></i></button>
+        <button class="btn btn-default" id="rotateRight" type="button" style="display: none;"><i class="fa fa-rotate-right"></i></button>
+        <button class="btn btn-default" id="zoomIn" type="button" style="display: none;"><i class="fa fa-search-plus"></i></button>
+        <button class="btn btn-default" id="zoomOut" type="button" style="display: none;"><i class="fa fa-search-minus"></i></button>
+        <button class="btn btn-warning" id="reset" type="button" style="display: none;"><i class="fa fa-times"></i></button>
         @endif
-        <button class="btn btn-danger" id="remove" type="button">Remove</button>
+        <button class="btn btn-danger" id="remove" type="button"><i class="fa fa-trash"></i></button>
     </div>
+
+    {{-- HINT --}}
+    @if (isset($field['hint']))
+        <p class="help-block">{!! $field['hint'] !!}</p>
+    @endif
   </div>
 
 
@@ -131,7 +136,7 @@
 
                     // Only initialize cropper plugin if crop is set to true
                     if(crop){
-                        
+
                         $remove.click(function() {
                             $mainImage.cropper("destroy");
                             $mainImage.attr('src','');
@@ -145,17 +150,17 @@
                             $zoomOut.hide();
                             $reset.hide();
                             $remove.hide();
-                        });      
-                    } else { 
-                        
+                        });
+                    } else {
+
                         $(this).find("#remove").click(function() {
                             $mainImage.attr('src','');
                             $hiddenImage.val('');
-                            $hiddenFilename.val('removed'); 
+                            $hiddenFilename.val('removed');
                             $remove.hide();
                         });
                     }
-                    
+
                     //Set hiddenFilename field to 'removed' if image has been removed.
                     //Otherwise hiddenFilename will be null if no changes have been made.
 
@@ -168,7 +173,7 @@
                             return;
                         }
                         file = files[0];
-                        
+
                         if (/^image\/\w+$/.test(file.type)) {
                             $hiddenFilename.val(file.name);
                             fileReader.readAsDataURL(file);
@@ -203,18 +208,18 @@
                                     $zoomOut.show();
                                     $reset.show();
                                     $remove.show();
-                                    
-                                } else {        
+
+                                } else {
                                     $mainImage.attr('src',this.result);
                                     $hiddenImage.val(this.result);
                                     $remove.show();
-                                }                                   
+                                }
                             };
                         } else {
                             alert("Please choose an image file.");
                         }
                     });
-                    
+
                 });
             });
         </script>

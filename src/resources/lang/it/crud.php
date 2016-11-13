@@ -13,21 +13,32 @@ return [
     |
     */
 
+    // Forms
+    'save_action_save_and_new' => 'Save and new item', // TODO: translate
+    'save_action_save_and_edit' => 'Save and edit this item', // TODO: translate
+    'save_action_save_and_back' => 'Save and back', // TODO: translate
+    'save_action_changed_notification' => 'Default save action changed', // TODO: translate
+
     // Create form
     'add'                 => 'Aggiungi',
     'back_to_all'         => 'Torna a tutti i ',
     'cancel'              => 'Annulla',
     'add_a_new'           => 'Aggiungi un nuovo ',
 
-        // Create form - advanced options
-        'after_saving'            => 'Dopo il salvataggio',
-        'go_to_the_table_view'    => 'vai alla lista di tutti gli elementi',
-        'let_me_add_another_item' => 'aggiungi un altro elemento',
-        'edit_the_new_item'       => 'modifica il nuovo elemento',
-
     // Edit form
     'edit'                 => 'Modifica',
     'save'                 => 'Salva',
+
+    // Revisions
+    'revisions'            => 'Revisioni',
+    'no_revisions'         => 'Nessuna revisione Trovato',
+    'created_this'          => 'ha creato questo',
+    'changed_the'          => 'cambiato il',
+    'restore_this_value'   => 'ripristinare questo valore',
+    'from'                 => 'de parte di',
+    'to'                   => 'a',
+    'undo'                 => 'Disfare',
+    'revision_restored'    => 'Revisione successo restaurato',
 
     // CRUD table view
     'all'                       => 'Tutti i ',
@@ -87,6 +98,10 @@ return [
     'reorder_success_message'      => 'Il tuo ordinamento è stato salvato.',
     'reorder_error_title'          => 'Errore',
     'reorder_error_message'        => 'Il tuo ordinamento non è stato salvato.',
+
+    // CRUD yes/no
+    'yes' => 'Sì',
+    'no' => 'No',
 
     // Fields
     'browse_uploads' => 'Sfoglia file caricati',

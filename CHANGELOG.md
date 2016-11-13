@@ -2,6 +2,15 @@
 
 All Notable changes to `Backpack CRUD` will be documented in this file
 
+-----------
+
+## 3.2.0 - YYYY-MM-DD
+
+### Added
+- form save button better UI&UX: they have the options in a dropdown instead of radio buttons and the default behaviour is stored in the session upon change - thanks to [Owen Melbourne](https://github.com/OwenMelbz);
+
+-----------
+
 ## NEXT - YYYY-MM-DD
 
 ### Added
@@ -20,6 +29,347 @@ All Notable changes to `Backpack CRUD` will be documented in this file
 - Nothing
 
 
+## [3.2.0] - 2016-11-13
+
+### Added
+- redirect_after_save button actions;
+- filters on list views (deleted the 3.1.41 and 4.1.42 tags because they were breaking changes);
+- routes are now abstracted intro CrudRoute, so that new routes can be easily added;
+
+
+## [3.1.42] - 2016-11-13
+
+### Fixed
+- n-n filters prevented CRUD items from being added;
+
+
+## [3.1.41] - 2016-11-11
+
+### Added
+- filters on list view;
+
+
+## [3.1.40] - 2016-11-06
+
+### Fixed
+- fixed video field having an extra input on page;
+- fixed hasUploadFields() check for update edit form; fixes #211;
+
+
+## [3.1.39] - 2016-11-06
+
+### Fixed
+- fixed SimpleMDE which was broken by last commit; really fixes #222;
+
+
+## [3.1.38] - 2016-11-04
+
+### Fixed
+- SimpleMDE field type did not allow multiple such field types in one form; fixes #222;
+
+
+## [3.1.37] - 2016-11-03
+
+### Fixed
+- Boolean column type triggered error because of improper use of the trans() helper;
+
+
+## [3.1.36] - 2016-10-30
+
+### Added
+- SimpleMDE field type (simple markdown editor).
+
+
+## [3.1.35] - 2016-10-30
+
+### Added
+- new column type: boolean;
+- new field type: color_picker;
+- new field type: date_picker;
+- new field type: datetime_picker;
+
+### Fixed
+- fixed default of 0 for radio field types;
+- fixes #187 - can now clear old address entries;
+- fixes hiding/showing buttons when the min/max are reached;
+- ckeditor field type now has customizable plugins;
+
+
+## [3.1.34] - 2016-10-22
+
+### Fixed
+- Config file is now published in the right folder.
+
+
+## [3.1.33] - 2016-10-17
+
+### Fixed
+- all fields now have hint, default value and customizable wrapper class - thanks to [Owen Melbourne](https://github.com/OwenMelbz); modifications were made in the following fields: base64_image, checklist, checklist_dependecy, image;
+- creating/updating elements works with morphable fields too; you need to define "morph" => true on the field for it to work;
+- isCollumnNullable is now calculated using Doctrine, so that it works for MySQL, PosgreSQL and SQLite;
+
+
+## [3.1.32] - 2016-10-17
+
+### Added
+- video field type - thanks to [Owen Melbourne](https://github.com/OwenMelbz);
+
+
+## [3.1.31] - 2016-10-17
+
+### Added
+- $this->crud->removeAllButtons() and $this->crud->removeAllButtonsFromStack();
+
+
+## [3.1.30] - 2016-10-17
+
+### Fixed
+- upload_multiple field did not remove the files from disk if no new files were added; solved with a hack - added a hidden input with the same name before it, so it always has a value and the mutator is always triggered;
+
+
+## [3.1.29] - 2016-10-17
+
+### Fixed
+- elFinder height needed a 2px adjustment in javascript; now that's solved using css;
+
+
+## [3.1.28] - 2016-10-16
+
+### Added
+- When elfinder is launched as it's own window, display full-screen;
+
+### Fixed
+- Update routes and editor links to follow the route_prefix set in config;
+- elFinder iframe now has no white background and uses backpack theme;
+
+
+## [3.1.27] - 2016-10-7
+
+### Fixed
+- 'table' field is properly encapsulated now;
+
+
+## [3.1.26] - 2016-09-30
+
+### Fixed
+- bug fix for 'table' field type - you can now have multiple fields on the same form;
+
+
+## [3.1.25] - 2016-09-28
+
+### Fixed
+- table field JSON bug;
+
+
+## [3.1.24] - 2016-09-27
+
+### Added
+- address field type - thanks to [Owen Melbourne](https://github.com/OwenMelbz);
+
+
+## [3.1.23] - 2016-09-27
+
+### Added
+- autoFocus() and autoFocusOnFirstField() - thanks to [Owen Melbourne](https://github.com/OwenMelbz);
+
+
+## [3.1.22] - 2016-09-27
+
+### Fixed
+- checklist and checklist_dependency fields allow html on labels;
+
+
+## [3.1.21] - 2016-09-26
+
+### Added
+- "table" field type - thanks to [Owen Melbourne](https://github.com/OwenMelbz);
+- "multidimensional_array" column type - thanks to [Owen Melbourne](https://github.com/OwenMelbz);
+
+
+## [3.1.20] - 2016-09-26
+
+### Added
+- Non-core CRUD features are now separated into traits;
+
+### Fixed
+- The 'password' field is no longer filtered before the create event;
+- CrudPanels can now be defined in the new EntityCrudController::setup() method;
+
+## [3.1.19] - 2016-09-26
+
+### Fixed
+- AJAX datatables can now have select_multiple columns;
+
+
+## [3.1.18] - 2016-09-25
+
+### Fixed
+- checkbox field has default value;
+
+
+
+## [3.1.17] - 2016-09-25
+
+### Fixed
+- Raw DB queries did not account for DB prefixes;
+
+
+## [3.1.16] - 2016-09-22
+
+### Added
+- Radio field and column - thanks to [Owen Melbourne](https://github.com/OwenMelbz);
+
+
+## [3.1.15] - 2016-09-21
+
+### Fixed
+- Missing $fillable item in model will now throw correct error, because _token is ignored;
+- Correct and complete language files;
+
+
+## [3.1.14] - 2016-09-19
+
+### Fixed
+- Checkbox storing issue in Laravel 5.3 - #115 thanks to [timdiels1](https://github.com/timdiels1);
+
+
+## [3.1.13] - 2016-09-19
+
+### Added
+- Revisions functionality, thanks to [se1exin](https://github.com/se1exin);
+
+
+## [3.1.12] - 2016-09-19
+
+### Added
+- French translation, thanks to [7ute](https://github.com/7ute);
+
+
+## [3.1.11] - 2016-09-19
+
+### Added
+- iconpicker field type;
+
+
+## [3.1.10] - 2016-09-16
+
+### Fixed
+- removeButton and removeButtonFromStack functionality, thanks to [Alexander N](https://github.com/morfin60);
+
+
+## [3.1.9] - 2016-09-16
+
+### Added
+- "prefix" and "suffix" optional attributes on the number and text field types;
+
+
+## [3.1.8] - 2016-09-15
+
+### Fixed
+- upload and upload_multiple can be used for S3 file storage too, by specifying the disk on the field;
+
+
+## [3.1.7] - 2016-09-15
+
+### Added
+- image field type - stores a base64 image from the front-end into a jpg/png file using Intervention/Image;
+
+
+## [3.1.6] - 2016-09-15
+
+### Added
+- upload_multiple field type;
+
+
+## [3.1.5] - 2016-09-14
+
+### Added
+- upload field type;
+
+### Fixed
+- setFromDb() no longer creates a field for created_at;
+
+
+## [3.1.4] - 2016-09-12
+
+### Added
+- Export buttons for CRUDs - to PDF, XLS, CSV and Print, thanks to [Nathaniel Kristofer Schweinberg](https://github.com/nathanielks);
+
+
+## [3.1.3] - 2016-09-12
+
+### Added
+- a "view" field type, which loads a custom view from a specified location; thanks to [Nathaniel Kristofer Schweinberg](https://github.com/nathanielks);
+
+
+## [3.1.2] - 2016-09-12
+
+### Fixed
+- save, update and reorder now replace empty inputs with NULL to allow for MySQL strict mode on (a default in Laravel 5.3) (#94)
+
+
+## [3.1.1] - 2016-09-05
+
+### Added
+- Allow HTML in all field labels (#98)
+
+
+## [3.1.0] - 2016-08-31
+
+### Added
+- Laravel 5.3 support;
+
+
+## [3.0.17] - 2016-08-26
+
+### Fixed
+- adding buttons from views did not work; fixes #93;
+
+
+## [3.0.16] - 2016-08-24
+
+### Fixed
+- Removed recurring comment from list view; Fixes #92;
+- Added check for permission in the CrudController::search() method for allowing the AJAX table only if list is enabled;
+
+
+## [3.0.15] - 2016-08-20
+
+### Fixed
+- Removed double-token input in Create view; Fixes #89;
+
+
+## [3.0.14] - 2016-08-20
+
+### Fixed
+- Fixed AJAX table view with big data sets - was still selecting all rows from the DB; Fixes #87;
+
+
+## [3.0.13] - 2016-08-17
+
+### Fixed
+- Custom pivot table in select2 and select2_multiple fields; Fixes #75;
+
+
+## [3.0.12] - 2016-08-17
+
+### Fixed
+- Reorder view works with custom primary keys; fixes #85;
+- URLs in views now use the backpack.base.route_prefix; fixes #88;
+
+
+## [3.0.11] - 2016-08-12
+
+### Added
+- Spanish translation, thanks to [Rafael Ernesto Ferro González](https://github.com/rafix);
+
+
+## [3.0.10] - 2016-08-09
+
+### Removed
+- PHP dependency, since it's already settled in Backpack\Base, which is a requirement;
+
+
 ## [3.0.9] - 2016-08-06
 
 ### Added
@@ -30,6 +380,7 @@ All Notable changes to `Backpack CRUD` will be documented in this file
 
 ### Added
 - automatic route names for all CRUD::resource() routes;
+
 
 ## [3.0.7] - 2016-08-05
 
