@@ -16,7 +16,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudFeatures\Reorder;
 use Backpack\CRUD\app\Http\Controllers\CrudFeatures\Revisions;
 use Backpack\CRUD\app\Http\Controllers\CrudFeatures\ShowDetailsRow;
 use Backpack\CRUD\app\Http\Controllers\CrudFeatures\SaveActions;
-//test
+
 class CrudController extends BaseController
 {
     use DispatchesJobs, ValidatesRequests;
