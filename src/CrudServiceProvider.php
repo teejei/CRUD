@@ -2,6 +2,7 @@
 
 namespace Backpack\CRUD;
 
+use Route;
 use Illuminate\Support\ServiceProvider;
 
 class CrudServiceProvider extends ServiceProvider
@@ -45,14 +46,24 @@ class CrudServiceProvider extends ServiceProvider
 
         // publish custom files for elFinder
         $this->publishes([
-                            __DIR__.'/config/elfinder.php'      => config_path('elfinder.php'),
-                            __DIR__.'/resources/views-elfinder' => resource_path('views/vendor/elfinder'),
-                            ], 'elfinder');
+            __DIR__.'/config/elfinder.php'      => config_path('elfinder.php'),
+            __DIR__.'/resources/views-elfinder' => resource_path('views/vendor/elfinder'),
+        ], 'elfinder');
 
+        // AUTO PUBLISH
+        if (\App::environment('local')) {
+            if ($this->shouldAutoPublishPublic()) {
+                \Artisan::call('vendor:publish', [
+                    '--provider' => 'Backpack\CRUD\CrudServiceProvider',
+                    '--tag' => 'public',
+                ]);
+            }
+        }
 
         // use the vendor configuration file as fallback
         $this->mergeConfigFrom(
-            __DIR__.'/config/backpack/crud.php', 'backpack.crud'
+            __DIR__.'/config/backpack/crud.php',
+            'backpack.crud'
         );
     }
 
@@ -79,10 +90,32 @@ class CrudServiceProvider extends ServiceProvider
         $loader->alias('Form', \Collective\Html\FormFacade::class);
         $loader->alias('Html', \Collective\Html\HtmlFacade::class);
         $loader->alias('Image', \Intervention\Image\Facades\Image::class);
+
+        // map the elfinder prefix
+        if (! \Config::get('elfinder.route.prefix')) {
+            \Config::set('elfinder.route.prefix', \Config::get('backpack.base.route_prefix').'/elfinder');
+        }
     }
 
     public static function resource($name, $controller, array $options = [])
     {
         return new CrudRouter($name, $controller, $options);
+    }
+
+    /**
+     * Checks to see if we should automatically publish
+     * vendor files from the public tag.
+     *
+     * @return bool
+     */
+    private function shouldAutoPublishPublic()
+    {
+        $crudPubPath = public_path('vendor/backpack/crud');
+
+        if (! is_dir($crudPubPath)) {
+            return true;
+        }
+
+        return false;
     }
 }

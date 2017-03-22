@@ -19,9 +19,25 @@ trait Read
      */
     public function getEntry($id)
     {
-        $entry = $this->model->findOrFail($id);
+        if (! $this->entry) {
+            $this->entry = $this->model->findOrFail($id);
+            $this->entry = $this->entry->withFakes();
+        }
 
-        return $entry->withFakes();
+        return $this->entry;
+    }
+
+    /**
+     * Make the query JOIN all relationships used in the columns, too,
+     * so there will be less database queries overall.
+     */
+    public function autoEagerLoadRelationshipColumns()
+    {
+        $relationships = $this->getColumnsRelationships();
+
+        if (count($relationships)) {
+            $this->with($relationships);
+        }
     }
 
     /**
@@ -31,6 +47,8 @@ trait Read
      */
     public function getEntries()
     {
+        $this->autoEagerLoadRelationshipColumns();
+
         $entries = $this->query->get();
 
         // add the fake columns for each entry
